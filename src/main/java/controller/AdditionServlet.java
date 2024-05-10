@@ -11,11 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/addition"})
 public class AdditionServlet extends HttpServlet
 {
     private final Cars cars = new Cars();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    {
+
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
@@ -35,7 +42,6 @@ public class AdditionServlet extends HttpServlet
         try
         {
             cars.addCar(newCar);
-
             updatePage(req, resp);
         }
         catch (SQLException e)

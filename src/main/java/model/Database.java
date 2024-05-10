@@ -16,10 +16,18 @@ public class Database
             throw new SQLException("Connection is closed");
     }
 
-    public void executeStaticQuery(String sqlQuery) throws SQLException
+    /**
+     * @return Если запрос может вернуть ResultSet, то возвращает его, если запрос статический - возвращает null.
+     */
+    public ResultSet executeQuery(String sqlQuery) throws SQLException
     {
         Statement statement = connection.createStatement();
-        statement.execute(sqlQuery);
+        boolean isResultSet = statement.execute(sqlQuery);
+
+        if (isResultSet)
+            return statement.executeQuery(sqlQuery);
+
+        return null;
     }
 
     public void closeConnection() throws SQLException
