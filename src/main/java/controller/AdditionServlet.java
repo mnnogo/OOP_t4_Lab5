@@ -2,21 +2,15 @@ package controller;
 
 import model.Car;
 import model.Cars;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import model.Database;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = {"/addition"})
 public class AdditionServlet extends HttpServlet
@@ -38,10 +32,16 @@ public class AdditionServlet extends HttpServlet
 
         Car newCar = new Car(brand, model, year, mileage, color, price);
 
-        cars.addCar(newCar);
+        try
+        {
+            cars.addCar(newCar);
 
-        // обновить страницу для обновления таблицы
-        updatePage(req, resp);
+            updatePage(req, resp);
+        }
+        catch (SQLException e)
+        {
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ошибка базы данных: " + e.getMessage());
+        }
     }
 
     private void updatePage(ServletRequest request, ServletResponse response) throws ServletException, IOException
@@ -49,4 +49,5 @@ public class AdditionServlet extends HttpServlet
         RequestDispatcher view = request.getRequestDispatcher("view/index.html");
         view.forward(request, response);
     }
+
 }
