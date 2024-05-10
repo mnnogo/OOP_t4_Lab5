@@ -25,10 +25,10 @@ public class AdditionServlet extends HttpServlet
 
         String brand = req.getParameter("brand");
         String model = req.getParameter("model");
-        String year = req.getParameter("year");
-        String mileage = req.getParameter("mileage");
+        int year = Integer.parseInt(req.getParameter("year"));
+        int mileage = Integer.parseInt(req.getParameter("mileage"));
         String color = req.getParameter("color");
-        String price = req.getParameter("price");
+        int price = Integer.parseInt(req.getParameter("price"));
 
         Car newCar = new Car(brand, model, year, mileage, color, price);
 

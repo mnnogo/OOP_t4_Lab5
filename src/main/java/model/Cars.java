@@ -17,6 +17,10 @@ public class Cars
     {
         database = new Database("jdbc:mysql://localhost:3306/cars", "root", "root");
 
+        database.executeStaticQuery(String.format("INSERT INTO cars (brand, model, year, mileage, color, price) " +
+                        "VALUES ('%s', '%s', %d, %d, '%s', %d)",
+                        car.getBrand(), car.getModel(), car.getYear(), car.getMileage(), car.getColor(), car.getPrice()));
+
         database.closeConnection();
     }
 }

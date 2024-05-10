@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Database
 {
@@ -19,9 +16,17 @@ public class Database
             throw new SQLException("Connection is closed");
     }
 
+    public void executeStaticQuery(String sqlQuery) throws SQLException
+    {
+        Statement statement = connection.createStatement();
+        statement.execute(sqlQuery);
+    }
+
     public void closeConnection() throws SQLException
     {
         if (!connection.isClosed())
             connection.close();
     }
+
+
 }

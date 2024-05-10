@@ -6,12 +6,12 @@ public class Car
 {
     private String brand;
     private String model;
-    private String year;
-    private String mileage;
+    private int year;
+    private int mileage;
     private String color;
-    private String price;
+    private int price;
 
-    public Car(String brand, String model, String year, String mileage, String color, String price)
+    public Car(String brand, String model, int year, int mileage, String color, int price)
     {
         this.brand = brand;
         this.model = model;
@@ -31,12 +31,12 @@ public class Car
         return model;
     }
 
-    public String getYear()
+    public int getYear()
     {
         return year;
     }
 
-    public String getMileage()
+    public int getMileage()
     {
         return mileage;
     }
@@ -46,7 +46,7 @@ public class Car
         return color;
     }
 
-    public String getPrice()
+    public int getPrice()
     {
         return price;
     }
@@ -59,12 +59,12 @@ public class Car
 
         Car car = (Car) o;
 
+        if (year != car.year) return false;
+        if (mileage != car.mileage) return false;
+        if (price != car.price) return false;
         if (!brand.equals(car.brand)) return false;
         if (!model.equals(car.model)) return false;
-        if (!year.equals(car.year)) return false;
-        if (!mileage.equals(car.mileage)) return false;
-        if (!color.equals(car.color)) return false;
-        return price.equals(car.price);
+        return color.equals(car.color);
     }
 
     @Override
@@ -72,10 +72,10 @@ public class Car
     {
         int result = brand.hashCode();
         result = 31 * result + model.hashCode();
-        result = 31 * result + year.hashCode();
-        result = 31 * result + mileage.hashCode();
+        result = 31 * result + year;
+        result = 31 * result + mileage;
         result = 31 * result + color.hashCode();
-        result = 31 * result + price.hashCode();
+        result = 31 * result + price;
         return result;
     }
 }
