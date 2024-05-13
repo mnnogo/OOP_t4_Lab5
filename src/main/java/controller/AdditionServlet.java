@@ -2,7 +2,6 @@ package controller;
 
 import model.Car;
 import model.Cars;
-import model.Database;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -17,23 +16,6 @@ import java.util.List;
 public class AdditionServlet extends HttpServlet
 {
     private final Cars cars = new Cars();
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
-    {
-        resp.setCharacterEncoding("UTF-8");
-        req.setCharacterEncoding("UTF-8");
-
-        try
-        {
-            List<Car> carsList = cars.getCars();
-            //resp.getWriter().write(carsList.toString());
-        }
-        catch (SQLException e)
-        {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ошибка базы данных: " + e.getMessage());
-        }
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
@@ -53,25 +35,15 @@ public class AdditionServlet extends HttpServlet
         try
         {
             cars.addCar(newCar);
-            //updatePage(req, resp);
 
-            // Создаем строку с JavaScript кодом, который нужно выполнить при загрузке страницы
-            String script = "<script>" +
-                    "alert('Страница загружена!');" +
-                    "</script>";
+            List<Car> carsList = cars.getCars();
+            req.setAttribute("carsList", carsList);
 
-            // Получаем объект PrintWriter для записи содержимого в HTTP-ответ
-            resp.getWriter().println(script);
+            req.getRequestDispatcher("view/index.jsp").forward(req, resp);
         }
         catch (SQLException e)
         {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ошибка базы данных: " + e.getMessage());
         }
-    }
-
-    private void updatePage(ServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        RequestDispatcher view = request.getRequestDispatcher("view/index.html");
-        view.forward(request, response);
     }
 }

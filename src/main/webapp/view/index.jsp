@@ -1,3 +1,6 @@
+<%@ page import="model.Car" %>
+<%@ page import="java.util.List" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -22,6 +25,17 @@
             </tr>
         </thead>
         <tbody>
+            <% List<Car> carsList = (List<Car>) request.getAttribute("carsList");
+                for (Car car : carsList) { %>
+            <tr>
+                <td><%= car.getBrand() %></td>
+                <td><%= car.getModel() %></td>
+                <td><%= car.getYear() %></td>
+                <td><%= car.getMileage() %></td>
+                <td><%= car.getColor() %></td>
+                <td><%= car.getPrice() %></td>
+            </tr>
+            <% } %>
         </tbody>
     </table>
 
