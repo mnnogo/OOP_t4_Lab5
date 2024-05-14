@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Автомобили</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
 
@@ -34,6 +35,8 @@
                 <td><%= car.getMileage() %></td>
                 <td><%= car.getColor() %></td>
                 <td><%= car.getPrice() %></td>
+                <td><a href="edit?carId=<%= car.getId() %>" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a></td>
+                <td><a href="delete?carId=<%= car.getId() %>" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></a></td>
             </tr>
             <% } %>
         </tbody>
@@ -55,7 +58,7 @@
               </div>
               <div class="form-group col-md-6">
                   <label for="year">Год выпуска:</label>
-                  <input type="number" class="form-control" id="year" name="year" min="1901" required>
+                  <input type="number" class="form-control" id="year" name="year" min="1901" max="2155" required>
               </div>
               <div class="form-group col-md-6">
                   <label for="mileage">Пробег (км):</label>

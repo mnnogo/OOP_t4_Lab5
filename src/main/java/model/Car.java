@@ -1,9 +1,8 @@
 package model;
 
-import java.util.Objects;
-
 public class Car
 {
+    private int id;
     private String brand;
     private String model;
     private int year;
@@ -11,14 +10,26 @@ public class Car
     private String color;
     private int price;
 
-    public Car(String brand, String model, int year, int mileage, String color, int price)
+    public Car(int id, String brand, String model, int year, int mileage, String color, int price)
     {
+        this.id = id;
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.mileage = mileage;
         this.color = color;
         this.price = price;
+    }
+
+    public Car(String brand, String model, int year, int mileage, String color, int price)
+    {
+        this(-1, brand, model, year, mileage, color, price);
+    }
+
+
+    public int getId()
+    {
+        return id;
     }
 
     public String getBrand()
@@ -59,6 +70,7 @@ public class Car
 
         Car car = (Car) o;
 
+        if (id != car.id) return false;
         if (year != car.year) return false;
         if (mileage != car.mileage) return false;
         if (price != car.price) return false;
@@ -70,7 +82,8 @@ public class Car
     @Override
     public int hashCode()
     {
-        int result = brand.hashCode();
+        int result = id;
+        result = 31 * result + brand.hashCode();
         result = 31 * result + model.hashCode();
         result = 31 * result + year;
         result = 31 * result + mileage;

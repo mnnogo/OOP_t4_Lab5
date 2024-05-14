@@ -3,7 +3,7 @@ package controller;
 import model.Car;
 import model.Cars;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,29 +12,19 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/addition"})
-public class AdditionServlet extends HttpServlet
+@WebServlet(urlPatterns = {"/delete"})
+public class DeletionServlet extends HttpServlet
 {
     private final Cars cars = new Cars();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        resp.setCharacterEncoding("UTF-8");
-        req.setCharacterEncoding("UTF-8");
-
-        String brand = req.getParameter("brand");
-        String model = req.getParameter("model");
-        int year = Integer.parseInt(req.getParameter("year"));
-        int mileage = Integer.parseInt(req.getParameter("mileage"));
-        String color = req.getParameter("color");
-        int price = Integer.parseInt(req.getParameter("price"));
-
-        Car newCar = new Car(brand, model, year, mileage, color, price);
+        int carId = Integer.parseInt(req.getParameter("carId"));
 
         try
         {
-            cars.addCar(newCar);
+            cars.removeCarById(carId);
 
             updatePage(req, resp);
         }
@@ -42,6 +32,7 @@ public class AdditionServlet extends HttpServlet
         {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ошибка базы данных: " + e.getMessage());
         }
+
     }
 
     private void updatePage(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException
